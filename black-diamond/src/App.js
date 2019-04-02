@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import StoreFront from "./Components/StoreFront/StoreFront";
-import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
-import NavBar from "./Components/NavBar/NavBar";
+import StoreFront from "./Components/StoreFront/StoreFront.js";
+import ShoppingCart from "./Components/ShoppingCart/ShoppingCart.js";
+import NavBar from "./Components/NavBar/NavBar.js";
 
 class App extends Component {
   constructor(props) {
@@ -12,6 +12,9 @@ class App extends Component {
       cart: [],
       showCart: false
     };
+    this.addToCart = this.addToCart.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
+    this.navigate = this.navigate.bind(this);
   }
   componentDidMount() {
     axios
@@ -26,6 +29,7 @@ class App extends Component {
     this.setState({
       cart: [...this.state.cart, item]
     });
+    alert('Added to cart!')
   }
   removeFromCart(index) {
     let cartCopy = this.state.cart.slice();
@@ -35,11 +39,9 @@ class App extends Component {
     });
   }
   navigate(location) {
-    if (location === "cart") {
-      this.state.showCart = true;
-    } else {
-      this.state.showCart = false;
-    }
+    location === "cart" ?
+    this.setState({showCart: true}) :
+    this.setState({showCart: false});
   }
   render() {
     const { products, cart, showCart } = this.state;
